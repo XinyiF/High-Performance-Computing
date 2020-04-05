@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
     float t1 = duration_sec.count();
     // cout << "in 0 b[0]=" << b[0] << endl;
     //  cout << "in 0 a[0]=" << a[0] << endl;
-    } else if (rank == 1) {
+  } else if (rank == 1) {
     high_resolution_clock::time_point start2;
     high_resolution_clock::time_point end2;
     start2 = high_resolution_clock::now();
@@ -60,6 +60,6 @@ int main(int argc, char *argv[]) {
     //  cout << "in 1 a[0]=" << a[0] << endl;
   }
   MPI_Finalize();
-  cout << t1+t2 << endl;
+  cout << t1 + t2 << endl;
   return 0;
 }

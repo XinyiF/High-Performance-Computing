@@ -1,3 +1,0 @@
-# CUDA
-CUDA practice 
-C++
