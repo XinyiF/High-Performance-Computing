@@ -1,9 +1,7 @@
-// Author: Nic Olsen
 #ifndef MOP_H
 #define MOP_H
 #include "KF.cuh"
 #include <cublas_v2.h>
-
 
 __device__ __host__ void mmul1(const float* A, const float* B, float* C, int m, int k, int n);
 __device__ __host__ void mmul_ABA(cublasHandle_t handle, const float* A, const float* B, float* C, int m, int k, int n, float* T);

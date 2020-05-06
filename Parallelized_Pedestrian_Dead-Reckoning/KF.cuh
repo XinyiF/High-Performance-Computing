@@ -1,4 +1,3 @@
-// Author: Nic Olsen
 #ifndef KF_H
 #define KF_H
 
@@ -16,8 +15,6 @@ using namespace std;
 #define to_idx(i,j,x) (j-1)*x+i-1 
 #define pi 3.1415926
 #define g -9.8027
-
-
 
 typedef struct Filter_def
 {
