@@ -46,6 +46,8 @@ __device__ void mcpy(float* dst, const float* src, int m, int n)
             dst[j * m + i] = src[j * m + i];
         }
 }
+
+//exponential of quaternion
 __device__ void expQuat(float* Q, float* V)
 {
     float fi = sqrt(V[0] * V[0] + V[1] * V[1] + V[2] * V[2]);
@@ -61,6 +63,7 @@ __device__ void expQuat(float* Q, float* V)
         Q[3] = V[2] / fi * sin(fi / 2);
     }
 }
+
 __device__ void vecCopy(float* dst, float* src, int n)
 {
     for (int i = 0; i < n; i++)
@@ -75,6 +78,7 @@ __device__ void matCopy(float* dst, float* src, int m, int n, int m_start, int x
             dst[to_idx(i + m_start - 1, j + n_start - 1, n)] = src[to_idx(i, j, x)] * alpha;
 }
 
+//vector to skew matrix
 __device__ void to_skew(float* skew, float* V)
 {
     skew[3] = -V[2];
@@ -85,6 +89,8 @@ __device__ void to_skew(float* skew, float* V)
     skew[5] = V[0];
 
 }
+
+//Identity matrix
 __device__ void eye(float* arr, int n)
 {
     memset(arr, 0, sizeof(arr));
@@ -111,7 +117,7 @@ __device__ __host__ void mmul_ABA(cublasHandle_t handle, const float* A, const f
 
 }
 
-
+//test tasks
 void test(cublasHandle_t handle)
 {
     float* A, * B, * C, * T, C1[16];
@@ -136,10 +142,7 @@ void test(cublasHandle_t handle)
 
     printM(A, 4, 3);
     printM(B, 3, 3);
-
-
     mmul_ABA(handle, A, B, C, 4, 3, 3, T);
-    // mmul(handle, A, B, C, 4,3,2);
     cudaMemcpy(C1, C, 16 * sizeof(float), cudaMemcpyDeviceToHost);
     printM(C1, 4, 4);
     cudaFree(A);
@@ -147,6 +150,8 @@ void test(cublasHandle_t handle)
     cudaFree(C);
     cudaFree(T);
 }
+
+//matrix inverse
 __device__ __host__ void minv(cublasHandle_t cublasHandle, float*A, float* invresult, int n)
 {
 
@@ -184,6 +189,8 @@ __device__ __host__ void minv(cublasHandle_t cublasHandle, float*A, float* invre
     cudaFree(srcDptr);
     cudaFree(resultDptr);
 }
+
+//cross product
 __device__ void cross(float* a, float* b, float* c)
 {
     c[0] = a[1]*b[2] - a[2]*b[1];
